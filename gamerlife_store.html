@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamerLife | Servicio Técnico, Consolas y Accesorios</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        gamer: ['Orbitron', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        neonCyan: '#00f3ff',
+                        neonBlue: '#0055ff',
+                        darkBlue: '#080c16',
+                        marioRed: '#e52521',
+                        marioBlue: '#00439c',
+                        marioYellow: '#f8b800',
+                        marioGreen: '#43b047',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: radial-gradient(circle at top, #0a1128 0%, #02040a 100%);
+            background-attachment: fixed;
+            color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .gamerlife-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            color: #ff0000;
+            text-transform: none;
+            text-shadow: 
+                -2px -2px 0 #ffffff,  
+                 2px -2px 0 #ffffff, 
+                -2px  2px 0 #ffffff, 
+                 2px  2px 0 #ffffff,
+                 0 0 25px rgba(255, 0, 0, 0.9);
+            letter-spacing: 1px;
+        }
+
+        @keyframes float-coin {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+        .mario-coin { animation: float-coin 2s ease-in-out infinite; }
+
+        @keyframes pulse-promo {
+            0% { transform: scale(1) skewX(-6deg); }
+            50% { transform: scale(1.03) skewX(-6deg); box-shadow: 0 0 30px #f8b800; }
+            100% { transform: scale(1) skewX(-6deg); }
+        }
+        .promo-badge { animation: pulse-promo 2s infinite; }
+
+        .glass-card {
+            background: rgba(10, 17, 40, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 243, 255, 0.25);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #00f3ff;
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.35);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a1128; }
+        ::-webkit-scrollbar-thumb { background: #00f3ff; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ffffff; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <header class="fixed w-full top-0 z-50 bg-[#0a1128]/95 backdrop-blur-md border-b-2 border-neonCyan transition-all" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="gamerlife-logo text-2xl sm:text-3xl">GamerLife</span>
+                </div>
+                
+                <nav class="hidden lg:flex space-x-5">
+                    <a href="#inicio" class="text-white hover:text-neonCyan transition-colors font-gamer uppercase text-xs font-bold tracking-wider">Inicio</a>
+                    <a href="#promos-destacadas" class="text-marioYellow hover:text-white transition-colors font-gamer uppercase text-xs font-bold tracking-wider">Kits PS2 ($)</a>
+                    <a href="#servicio" class="text-white hover:text-neonCyan transition-colors font-gamer uppercase text-xs font-bold tracking-wider">Servicio Técnico</a>
+                    <a href="#consolas" class="text-white hover:text-neonCyan transition-colors font-gamer uppercase text-xs font-bold tracking-wider">Consolas</a>
+                    <a href="#accesorios" class="text-white hover:text-neonCyan transition-colors font-gamer uppercase text-xs font-bold tracking-wider">Accesorios</a>
+                    <a href="#liberaciones" class="text-white hover:text-neonCyan transition-colors font-gamer uppercase text-xs font-bold tracking-wider">Mods & Juegos</a>
+                </nav>
+                
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-white hover:text-neonCyan focus:outline-none text-2xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden bg-[#0a1128] border-b border-neonCyan">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#inicio" class="block px-3 py-2 text-white hover:text-neonCyan font-gamer uppercase mobile-link font-bold">Inicio</a>
+                <a href="#promos-destacadas" class="block px-3 py-2 text-marioYellow hover:text-white font-gamer uppercase mobile-link font-bold">Kits PS2 ($)</a>
+                <a href="#servicio" class="block px-3 py-2 text-white hover:text-neonCyan font-gamer uppercase mobile-link font-bold">Servicio Técnico</a>
+                <a href="#consolas" class="block px-3 py-2 text-white hover:text-neonCyan font-gamer uppercase mobile-link font-bold">Consolas</a>
+                <a href="#accesorios" class="block px-3 py-2 text-white hover:text-neonCyan font-gamer uppercase mobile-link font-bold">Accesorios</a>
+                <a href="#liberaciones" class="block px-3 py-2 text-white hover:text-neonCyan font-gamer uppercase mobile-link font-bold">Mods & Juegos</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="inicio" class="relative pt-32 pb-6 flex flex-col items-center justify-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-16 mb-6 mt-4">
+                <span class="font-gamer text-lg md:text-2xl text-neonCyan font-bold transform -rotate-3 drop-shadow-[0_0_10px_#00f3ff]">
+                    TU CONSOLA EN <br> BUENAS MANOS
+                </span>
+                <h1 class="gamerlife-logo text-5xl sm:text-7xl lg:text-9xl my-2">
+                    GamerLife
+                </h1>
+                <span class="font-gamer text-lg md:text-2xl text-neonCyan font-bold transform rotate-3 drop-shadow-[0_0_10px_#00f3ff]">
+                    JUGÁ SIN <br> LÍMITES
+                </span>
+            </div>
+            <p class="font-gamer text-xl sm:text-3xl text-white font-black tracking-widest uppercase drop-shadow">
+                SERVICIO TÉCNICO OFICIAL
+            </p>
+        </div>
+    </section>
+
+    <section id="promos-destacadas" class="py-12 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-14">
+                <div class="inline-block bg-marioYellow text-black font-gamer font-black text-2xl sm:text-4xl px-8 py-3 transform -skew-x-6 border-4 border-black promo-badge shadow-2xl mb-4">
+                    <span class="transform skew-x-6 block">KITS & ACCESORIOS PS2 DESTACADOS</span>
+                </div>
+                <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
+                    ¡Aprovechá las ofertas de temporada! Potencia tu consola clásica con nuestros kits probados y garantizados con OPL.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Product 1 -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between border-t-4 border-marioRed relative overflow-hidden group">
+                    <div class="absolute top-3 right-3 bg-marioRed text-white font-gamer text-xs font-black px-3 py-1 rounded-full uppercase">
+                        Más Popular
+                    </div>
+                    <div>
+                        <div class="h-16 flex items-center justify-center mb-4">
+                            <i class="fas fa-box-open text-5xl text-marioRed group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <h3 class="font-gamer text-xl font-bold text-white mb-2 leading-snug">Kit Memory Card 16MB + Pendrive 64GB</h3>
+                        <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                            Incluye Memory Card de 16MB con <strong class="text-neonCyan">OPL</strong> + Pendrive USB de 64GB con <strong class="text-white">Juegos a elección</strong> (aprox. 20 juegos listos).
+                        </p>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-gamer font-black text-marioYellow mb-4 text-center">
+                            $60.000
+                        </div>
+                        <a href="https://wa.me/5491161536717?text=Hola,%20quiero%20comprar%20el%20Kit%20Memory%20Card%2016MB%20+%20Pendrive%2064GB%20por%20$60.000" target="_blank" class="w-full block py-3 bg-marioRed text-white font-gamer font-bold uppercase rounded-xl hover:bg-red-700 transition-all text-center border border-marioRed shadow-[0_0_15px_#e52521]">
+                            <i class="fab fa-whatsapp mr-2"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between border-t-4 border-neonCyan relative overflow-hidden group">
+                    <div>
+                        <div class="h-16 flex items-center justify-center mb-4">
+                            <i class="fas fa-memory text-5xl text-neonCyan group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <h3 class="font-gamer text-xl font-bold text-white mb-2 leading-snug">Memory Card 8MB con OPL (Sony 2024)</h3>
+                        <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                            Memory card oficial Sony de 8MB con sistema <strong class="text-neonCyan">OPL (Open PS2 Loader)</strong> actualizado edición 2024. Calidad y estabilidad.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-gamer font-black text-marioYellow mb-4 text-center">
+                            $35.000
+                        </div>
+                        <a href="https://wa.me/5491161536717?text=Hola,%20quiero%20comprar%20la%20Memory%20Card%208MB%20con%20OPL%20por%20$35.000" target="_blank" class="w-full block py-3 bg-neonCyan text-black font-gamer font-black uppercase rounded-xl hover:bg-white transition-all text-center border border-neonCyan shadow-[0_0_15px_rgba(0,243,255,0.5)]">
+                            <i class="fab fa-whatsapp mr-2"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between border-t-4 border-marioYellow relative overflow-hidden group">
+                    <div>
+                        <div class="h-16 flex items-center justify-center mb-4">
+                            <i class="fas fa-usb text-5xl text-marioYellow group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <h3 class="font-gamer text-xl font-bold text-white mb-2 leading-snug">Pendrive 64GB Juegos a Elección</h3>
+                        <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                            Pendrive USB 64GB de alta velocidad. Juegos a elección <strong class="text-white">hasta llenar el pendrive</strong> completo para PS2.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-gamer font-black text-marioYellow mb-4 text-center">
+                            $35.000
+                        </div>
+                        <a href="https://wa.me/5491161536717?text=Hola,%20quiero%20comprar%20el%20Pendrive%2064GB%20de%20juegos%20por%20$35.000" target="_blank" class="w-full block py-3 bg-marioYellow text-black font-gamer font-black uppercase rounded-xl hover:bg-yellow-400 transition-all text-center border border-marioYellow shadow-[0_0_15px_rgba(248,184,0,0.5)]">
+                            <i class="fab fa-whatsapp mr-2"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between border-t-4 border-purple-500 relative overflow-hidden group">
+                    <div class="absolute top-3 right-3 bg-purple-600 text-white font-gamer text-xs font-black px-3 py-1 rounded-full uppercase">
+                        Máxima Capacidad
+                    </div>
+                    <div>
+                        <div class="h-16 flex items-center justify-center mb-4">
+                            <i class="fas fa-database text-5xl text-purple-400 group-hover:scale-110 transition-transform"></i>
+                        </div>
+                        <h3 class="font-gamer text-xl font-bold text-white mb-2 leading-snug">Pendrive 128GB Juegos a Elección</h3>
+                        <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                            Pendrive USB 128GB. Cargado con tus juegos preferidos <strong class="text-white">hasta llenar el pendrive</strong> para la máxima diversión.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-gamer font-black text-marioYellow mb-4 text-center">
+                            $65.000
+                        </div>
+                        <a href="https://wa.me/5491161536717?text=Hola,%20quiero%20comprar%20el%20Pendrive%20128GB%20por%20$65.000" target="_blank" class="w-full block py-3 bg-purple-600 text-white font-gamer font-bold uppercase rounded-xl hover:bg-purple-500 transition-all text-center border border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+                            <i class="fab fa-whatsapp mr-2"></i> Comprar
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="servicio" class="py-16 relative bg-black/40 border-y-2 border-neonCyan/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="font-gamer text-3xl sm:text-5xl font-black text-white uppercase drop-shadow-lg mb-2">
+                    Servicio <span class="text-neonCyan">Técnico</span> General
+                </h2>
+                <div class="h-1 w-32 bg-marioRed mx-auto mt-4 rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card p-6 rounded-2xl border-l-4 border-neonCyan flex flex-col h-full">
+                    <i class="fas fa-tv text-4xl text-neonCyan mb-4"></i>
+                    <h4 class="font-gamer text-xl text-white font-bold mb-2 uppercase">TV & Smart TV</h4>
+                    <p class="text-gray-300 text-sm flex-grow">Reparación de <strong class="text-white">todas las marcas y modelos</strong>. Cambio de tiras LED, fuentes y placas.</p>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl border-l-4 border-green-500 flex flex-col h-full">
+                    <i class="fas fa-mobile-alt text-4xl text-green-500 mb-4"></i>
+                    <h4 class="font-gamer text-xl text-white font-bold mb-2 uppercase">Celulares</h4>
+                    <p class="text-gray-300 text-sm flex-grow">Reparación en general para <strong class="text-white">Android y iPhone</strong>. Módulos, baterías y pines de carga.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border-l-4 border-marioYellow flex flex-col h-full">
+                    <i class="fas fa-desktop text-4xl text-marioYellow mb-4"></i>
+                    <h4 class="font-gamer text-xl text-white font-bold mb-2 uppercase">PC & Laptops</h4>
+                    <p class="text-gray-300 text-sm flex-grow"><strong class="text-white">Armado y reparación de PC.</strong> Mantenimiento preventivo, limpieza profunda y Windows.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border-l-4 border-marioRed flex flex-col h-full">
+                    <i class="fas fa-gamepad text-4xl text-marioRed mb-4"></i>
+                    <h4 class="font-gamer text-xl text-white font-bold mb-2 uppercase">Consolas</h4>
+                    <p class="text-gray-300 text-sm flex-grow">Diagnóstico, solución de fallas y cambio de pasta térmica con <strong class="text-white">Garantía</strong>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="consolas" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center justify-center bg-marioYellow text-black font-black font-gamer px-6 py-2 transform -skew-x-12 mb-4">
+                    <span class="transform skew-x-12 uppercase text-xl">Venta de Consolas de Videojuegos</span>
+                </div>
+                <h2 class="font-gamer text-3xl sm:text-5xl font-bold text-white uppercase text-shadow-lg mt-2">
+                    Reacondicionadas <span class="text-neonCyan">Con Garantía <i class="fas fa-shield-check"></i></span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glass-card rounded-2xl p-6 text-center border-t border-gray-600">
+                    <i class="fab fa-playstation text-6xl text-gray-400 mb-4"></i>
+                    <h3 class="font-gamer text-2xl text-white font-bold mb-2">PlayStation 2</h3>
+                    <p class="text-gray-400 text-sm mb-4">Testeada, joysticks, cables y juegos con OPL listo para jugar.</p>
+                    <a href="https://wa.me/5491161536717?text=Hola,%20quiero%20consultar%20por%20PlayStation%202%20en%20venta" target="_blank" class="inline-block px-4 py-2 bg-marioRed text-white text-xs font-gamer font-bold uppercase rounded-lg">Consultar Stock</a>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 text-center border-t border-white">
+                    <i class="fab fa-playstation text-6xl text-white mb-4"></i>
+                    <h3 class="font-gamer text-2xl text-white font-bold mb-2">PlayStation 3</h3>
+                    <p class="text-gray-400 text-sm mb-4">Impecables con mandos y títulos digitales incluidos.</p>
+                    <a href="https://wa.me/5491161536717?text=Hola,%20quiero%20consultar%20por%20PlayStation%203%20en%20venta" target="_blank" class="inline-block px-4 py-2 bg-marioRed text-white text-xs font-gamer font-bold uppercase rounded-lg">Consultar Stock</a>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 text-center border-t border-neonCyan">
+                    <i class="fab fa-playstation text-6xl text-neonCyan mb-4"></i>
+                    <h3 class="font-gamer text-2xl text-white font-bold mb-2">PlayStation 4</h3>
+                    <p class="text-gray-400 text-sm mb-4">Revisada al 100%, mantenimiento al día y garantía total.</p>
+                    <a href="https://wa.me/5491161536717?text=Hola,%20quiero%20consultar%20por%20PlayStation%204%20en%20venta" target="_blank" class="inline-block px-4 py-2 bg-neonCyan text-black text-xs font-gamer font-bold uppercase rounded-lg">Consultar Stock</a>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 text-center border-t border-green-500">
+                    <i class="fab fa-xbox text-6xl text-green-500 mb-4"></i>
+                    <h3 class="font-gamer text-2xl text-white font-bold mb-2">Xbox 360</h3>
+                    <p class="text-gray-400 text-sm mb-4">Excelente catálogo arcade con RGH y juegos cargados.</p>
+                    <a href="https://wa.me/5491161536717?text=Hola,%20quiero%20consultar%20por%20Xbox%20360%20en%20venta" target="_blank" class="inline-block px-4 py-2 bg-green-600 text-white text-xs font-gamer font-bold uppercase rounded-lg">Consultar Stock</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="accesorios" class="py-20 relative bg-black/50 border-t-2 border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <div>
+                    <h2 class="font-gamer text-3xl sm:text-5xl font-bold text-white uppercase drop-shadow-lg mb-8 leading-tight">
+                        Venta de <span class="text-neonCyan">Accesorios</span> <br> e Insumos
+                    </h2>
+                    
+                    <div class="glass-card p-8 rounded-3xl border-l-4 border-marioRed">
+                        <ul class="space-y-4">
+                            <li class="flex items-center text-lg text-white font-medium">
+                                <i class="fas fa-gamepad text-marioRed mr-4 text-2xl w-8 text-center"></i> Joysticks y controles (alámbricos e inalámbricos)
+                            </li>
+                            <li class="flex items-center text-lg text-white font-medium">
+                                <i class="fas fa-plug text-marioRed mr-4 text-2xl w-8 text-center"></i> Cables HDMI, de poder y cargadores
+                            </li>
+                            <li class="flex items-center text-lg text-white font-medium">
+                                <i class="fas fa-headphones text-marioRed mr-4 text-2xl w-8 text-center"></i> Auriculares y Headsets gamer
+                            </li>
+                            <li class="flex items-center text-lg text-white font-medium">
+                                <i class="fas fa-tools text-marioRed mr-4 text-2xl w-8 text-center"></i> Piezas y repuestos especializados
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flex justify-center relative">
+                    <div class="glass-card w-full max-w-md p-8 rounded-3xl border-4 border-marioRed shadow-[0_0_40px_rgba(229,37,33,0.3)] text-center relative overflow-hidden">
+                        
+                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-marioYellow rounded-full flex items-center justify-center shadow-[0_0_20px_#f8b800] mario-coin z-20 border-4 border-white">
+                            <i class="fas fa-star text-yellow-700 text-3xl"></i>
+                        </div>
+
+                        <i class="fas fa-ghost text-6xl text-white mb-6 opacity-90"></i>
+                        <h3 class="font-gamer text-3xl font-bold text-white uppercase drop-shadow-md mb-4">¡Equipate como un Pro!</h3>
+                        <p class="text-gray-300 text-base mb-6">Todo lo que necesitas para tu setup lo encontrás en nuestra tienda. Stock permanente y asesoramiento.</p>
+                        
+                        <a href="https://wa.me/5491161536717?text=Hola,%20quiero%20consultar%20por%20accesorios" target="_blank" class="inline-block w-full py-4 bg-marioRed text-white font-gamer font-bold uppercase rounded-xl hover:bg-red-700 transition-all text-center border border-marioRed shadow-[0_0_15px_#e52521]">
+                            <i class="fab fa-whatsapp mr-2"></i> Consultar por WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="liberaciones" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-gamer text-3xl sm:text-5xl font-bold text-white uppercase border-b-4 border-neonCyan inline-block pb-2">
+                    Juegos Digitales & Liberaciones
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <div class="glass-card p-8 rounded-3xl group border-t-2 border-transparent hover:border-neonCyan">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-download text-4xl text-neonCyan mr-5"></i>
+                        <h3 class="font-gamer text-2xl text-white font-bold uppercase">Juegos Digitales</h3>
+                    </div>
+                    <p class="text-gray-300 text-base">Vendemos e instalamos juegos completos y licencias para PS3, PS4 y Xbox. Catálogo completo, estrenos y clásicos listos para jugar.</p>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl group border-t-2 border-transparent hover:border-marioRed">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-unlock-alt text-4xl text-marioRed mr-5"></i>
+                        <h3 class="font-gamer text-2xl text-white font-bold uppercase">Flasheos & Liberaciones</h3>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        <div class="bg-black/60 p-3 rounded border border-gray-700 text-sm text-white font-bold text-center">PlayStation 5</div>
+                        <div class="bg-black/60 p-3 rounded border border-gray-700 text-sm text-white font-bold text-center">Nintendo Switch</div>
+                        <div class="bg-black/60 p-3 rounded border border-gray-700 text-sm text-white font-bold text-center">Nintendo Wii</div>
+                        <div class="bg-black/60 p-3 rounded border border-gray-700 text-sm text-gray-300 text-center">PS3 / PS4</div>
+                        <div class="bg-black/60 p-3 rounded border border-gray-700 text-sm text-gray-300 text-center">Xbox 360 (RGH)</div>
+                        <div class="bg-black/60 p-3 rounded border border-gray-700 text-sm text-gray-300 text-center">PS2 (OPL)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#050810] pt-16 pb-8 border-t-4 border-marioRed relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+                
+                <div>
+                    <span class="gamerlife-logo text-4xl block mb-2">GamerLife</span>
+                    <span class="font-gamer text-neonCyan font-bold text-lg italic block mb-6">"Tu consola + cerca de vos"</span>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Mantenimiento preventivo, diagnóstico, reparación, venta de consolas, accesorios y juegos. Tu tienda gamer de confianza en Zona Oeste.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-gamer text-xl text-white font-bold mb-4 uppercase">Escribinos por WhatsApp</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li>
+                            <a href="https://wa.me/5491161536717" target="_blank" class="flex items-center text-white bg-green-600/10 hover:bg-green-600/30 transition-colors p-3 rounded-lg border border-green-500/50">
+                                <i class="fab fa-whatsapp text-3xl mr-4 text-green-400"></i>
+                                <div>
+                                    <span class="block font-black text-xl tracking-wider">11 6153 6717</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/5491159944734" target="_blank" class="flex items-center text-white bg-green-600/10 hover:bg-green-600/30 transition-colors p-3 rounded-lg border border-green-500/50">
+                                <i class="fab fa-whatsapp text-3xl mr-4 text-green-400"></i>
+                                <div>
+                                    <span class="block font-black text-xl tracking-wider">11 5994 4734</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-gamer text-xl text-white font-bold mb-4 uppercase">Ubicación</h4>
+                    <div class="glass-card p-5 rounded-xl border-l-4 border-marioRed bg-black/40">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-marioRed text-3xl mt-1 mr-4"></i>
+                            <div>
+                                <span class="block text-neonCyan font-black text-lg uppercase tracking-wider mb-1">Zona Oeste Moreno</span>
+                                <p class="text-white font-bold text-base leading-relaxed mb-1">
+                                    José Ingenieros 2790
+                                </p>
+                                <p class="text-gray-400 text-sm">
+                                    entre España y Mongol Fier
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center flex flex-col justify-center items-center gap-4">
+                <p class="text-gray-500 text-xs sm:text-sm font-bold tracking-wider leading-relaxed">
+                    #PLAYSTATION &nbsp; #XBOX &nbsp; #NINTENDO SWITCH &nbsp; #ACCESORIOS &nbsp; #INSUMOS &nbsp; #SERVICIO TÉCNICO &nbsp; #GAMER LIFE
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5491161536717?text=Hola,%20vengo%20de%20la%20web%20de%20GamerLife" target="_blank" class="fixed bottom-6 right-6 z-[100] w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(37,211,102,0.6)] hover:bg-[#1ebe5d] hover:scale-110 transition-all border-2 border-white/20" title="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
